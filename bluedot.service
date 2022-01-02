@@ -1,0 +1,21 @@
+[Unit]
+Description=Steam-to-temperature with pyDE1
+Wants=pyde1.service
+After=syslog.target pyde1.service
+
+[Service]
+# No database access, but a convenient user
+User=pyde1
+Group=pyde1
+
+# If needed, change the path to that of the venv's Python
+# The executable name can't be a variable
+ExecStart=/home/pyde1/venv/pyde1/bin/python3 /home/pyde1/deploy/bluedot/bluedot.py
+
+Restart=always
+StandardError=syslog
+# Sets the process name to that of the service
+SyslogIdentifier=%N
+
+[Install]
+WantedBy=multi-user.target
